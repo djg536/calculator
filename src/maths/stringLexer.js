@@ -1,10 +1,6 @@
-import CalcToken from "./calcSymbol";
+import CalcToken from "./calcToken";
 
-export default class MathsProcessor {
-    constructor(input) {
-        this._input = input;
-    }
-
+export default class StringLexer {
     extractTokens(str) {
         const validTokens = [
             "\\(",
@@ -30,7 +26,7 @@ export default class MathsProcessor {
         return levelArr;
     }
 
-    lexCalculationFromStr(str) {
+    lexString(str) {
         const tokens = this.extractTokens(str);
         let depth = 0;
         let currentInsertingArrPtr = [];
@@ -48,9 +44,5 @@ export default class MathsProcessor {
             }
         }
         return currentInsertingArrPtr;
-    }
-
-    step() {
-        console.log(this.lexCalculationFromStr(this._input));
     }
 }

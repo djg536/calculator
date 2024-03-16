@@ -1,10 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
-import MathsProcessor from "./maths/mathsProcessor";
+import StringLexer from "./maths/stringLexer";
 
 function App() {
-    const processor = new MathsProcessor("5*2+(3-(2*2))");
-    processor.step();
+    const lexer = new StringLexer();
+    lexer.lexString("5*2+(3-(2*2))");
 
     return (
         <div className="App">
