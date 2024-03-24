@@ -13,8 +13,8 @@ export default class StringLexer {
             "\\d+"
         ];
         const extractTokenRegex = new RegExp(validTokens.join("|"), "gm");
-        return Array.from(str.matchAll(extractTokenRegex)).map(
-            (arr) => new CalcToken(arr[0])
+        return Array.from(str.matchAll(extractTokenRegex)).map((arr) =>
+            CalcToken.getInstance(arr[0])
         );
     }
 
@@ -31,18 +31,19 @@ export default class StringLexer {
         let depth = 0;
         let currentInsertingArrPtr = [];
         let outputArr = currentInsertingArrPtr;
-        for (let op of tokens) {
+        tokens.forEach((op) => {
             if (op.getTokenStr() === "(") {
                 depth++;
-                currentInsertingArrPtr = [];
-                outputArr.push(currentInsertingArrPtr);
+                const newArr = [];
+                currentInsertingArrPtr.push(newArr);
+                currentInsertingArrPtr = newArr;
             } else if (op.getTokenStr() === ")") {
                 depth--;
                 currentInsertingArrPtr = this.findLevel(outputArr, depth);
             } else {
                 currentInsertingArrPtr.push(op);
             }
-        }
-        return currentInsertingArrPtr;
+        });
+        return outputArr;
     }
 }
