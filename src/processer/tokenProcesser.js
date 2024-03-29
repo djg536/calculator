@@ -30,6 +30,7 @@ export default class TokenProcesser {
             }
         } while (operatorIndex);
         console.info(`Result: ${terminalsArray}`);
+        return terminalsArray[0];
     }
 
     findFirstOperatorIndex(terminalsArray) {
@@ -46,22 +47,20 @@ export default class TokenProcesser {
     }
 
     navigate(tokensArray) {
-        let reachedTerminal = true;
-        tokensArray.forEach((token) => {
+        tokensArray.forEach((token, i) => {
             if (Array.isArray(token)) {
-                this.navigate(token);
-                reachedTerminal = false;
+                tokensArray[i] = this.navigate(token);
+                console.info(token);
             }
         });
-        if (reachedTerminal) {
-            console.info(`Processing terminals ${tokensArray}`);
-            this.processTerminals(tokensArray);
-        }
+        console.info(`Processing terminals ${tokensArray}`);
+        return this.processTerminals(tokensArray);
     }
 
     calculate(calculationStr) {
         const lexer = new StringLexer();
         const tokensArray = lexer.lexString(calculationStr);
         this.navigate(tokensArray);
+        console.log(`Final result: ${tokensArray[0].getTokenStr()}`);
     }
 }
