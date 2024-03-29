@@ -1,10 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
-import TokenProcesser from "./processer/tokenProcesser.js";
+import { Evaluator } from "./evaluator/evaluator.js";
 
 function App() {
-    const processor = new TokenProcesser();
-    processor.calculate("5*2+(3-(2*2))");
+    new Evaluator().run("(2)");
 
     return (
         <div className="App">

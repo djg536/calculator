@@ -10,7 +10,7 @@ export default class StringLexer {
             "////",
             "\\-",
             "log",
-            "\\d+"
+            "\\d+\\.?\\d*"
         ];
         const extractTokenRegex = new RegExp(validTokens.join("|"), "gm");
         return Array.from(str.matchAll(extractTokenRegex)).map((arr) =>

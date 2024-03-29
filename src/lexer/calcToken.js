@@ -15,8 +15,10 @@ export default class CalcToken {
         );
         if (operator) {
             return operator;
-        } else {
+        } else if (isNaN(tokenStr)) {
             return new CalcToken(tokenStr, CalcToken.PRIORITY_NEUTRAL);
+        } else {
+            return new CalcToken(Number(tokenStr), CalcToken.PRIORITY_NEUTRAL);
         }
     }
 

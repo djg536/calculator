@@ -1,5 +1,4 @@
 import CalcToken from "../lexer/calcToken.js";
-import StringLexer from "../lexer/stringLexer.js";
 
 export default class TokenProcesser {
     process(terminalsArray, operatorIndex) {
@@ -29,7 +28,7 @@ export default class TokenProcesser {
                 this.process(terminalsArray, operatorIndex);
             }
         } while (operatorIndex);
-        console.info(`Result: ${terminalsArray}`);
+        console.debug(`Result: ${terminalsArray}`);
         return terminalsArray[0];
     }
 
@@ -53,14 +52,12 @@ export default class TokenProcesser {
                 console.info(token);
             }
         });
-        console.info(`Processing terminals ${tokensArray}`);
+        console.debug(`Processing terminals ${tokensArray}`);
         return this.processTerminals(tokensArray);
     }
 
-    calculate(calculationStr) {
-        const lexer = new StringLexer();
-        const tokensArray = lexer.lexString(calculationStr);
+    calculate(tokensArray) {
         this.navigate(tokensArray);
-        console.log(`Final result: ${tokensArray[0].getTokenStr()}`);
+        return tokensArray[0].getTokenStr();
     }
 }
