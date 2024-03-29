@@ -5,21 +5,44 @@ const testArrayEquals = (actual, expected) => {
     expect(JSON.stringify(actual)).toBe(JSON.stringify(expected));
 };
 
-test("Find level", () => {
-    const lexer = new StringLexer();
+test("Find zeroth level", () => {
+    const valToFind = 5;
+    const arr = valToFind;
+    expect(new StringLexer().findLevel(arr, 0)).toBe(valToFind);
+});
+
+test("Find first level", () => {
+    const valToFind = 5;
+    const arr = [valToFind];
+    expect(new StringLexer().findLevel(arr, 2)).toBe(valToFind);
+});
+
+test("Find second level", () => {
     const arrToFind = [5];
     const arr = [arrToFind];
-    expect(lexer.findLevel(arr, 2)).toBe(arrToFind);
+    expect(new StringLexer().findLevel(arr, 2)).toBe(arrToFind);
+});
+
+test("Find third level", () => {
+    const arrToFind = [5];
+    const arr = [2, [arrToFind]];
+    expect(new StringLexer().findLevel(arr, 3)).toBe(arrToFind);
+});
+
+test("Find fourth level", () => {
+    const arrToFind = [5];
+    const arr = [2, "-", [3, "+", [arrToFind]]];
+    expect(new StringLexer().findLevel(arr, 4)).toBe(arrToFind);
 });
 
 test("Parse decimal numbers", () => {
-    const lexer = new StringLexer();
-    testArrayEquals(lexer.extractTokens("4.6"), [CalcToken.getInstance(4.6)]);
+    testArrayEquals(new StringLexer().extractTokens("4.6"), [
+        CalcToken.getInstance(4.6)
+    ]);
 });
 
 test("Parse brackets", () => {
-    const lexer = new StringLexer();
-    testArrayEquals(lexer.extractTokens("(4.6)"), [
+    testArrayEquals(new StringLexer().extractTokens("(4.6)"), [
         CalcToken.getInstance("("),
         CalcToken.getInstance(4.6),
         CalcToken.getInstance(")")
@@ -27,10 +50,15 @@ test("Parse brackets", () => {
 });
 
 test("Parse multiple decimal numbers", () => {
-    const lexer = new StringLexer();
-    testArrayEquals(lexer.extractTokens("4.6-3.1"), [
+    testArrayEquals(new StringLexer().extractTokens("4.6-3.1"), [
         CalcToken.getInstance(4.6),
         CalcToken.getInstance("-"),
         CalcToken.getInstance(3.1)
+    ]);
+});
+
+test("Whitespace ignored", () => {
+    testArrayEquals(new StringLexer().extractTokens("  4.6"), [
+        CalcToken.getInstance(4.6)
     ]);
 });

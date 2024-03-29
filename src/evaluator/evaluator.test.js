@@ -27,3 +27,7 @@ test("A single value within inner brackets", () => {
 test("Decimal point calculations", () => {
     expect(new Evaluator().run("1.5+4")).toBe(5.5);
 });
+
+test("Evaluated calculations", () => {
+    expect(new Evaluator().run("5*2+(3-(2*2))")).toBe(9);
+});
