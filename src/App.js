@@ -1,28 +1,34 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { Evaluator } from "./evaluator/evaluator.js";
+import CalcButton from "./CalcButton.js";
+import CalcToken from "./lexer/calcToken.js";
+import Display from "./Display.js";
+import { useState } from "react";
 
-function App() {
-    new Evaluator().run("(2)");
+export default function App() {
+    const [calculation, setCalculation] = useState("3+2");
+
+    const buttonList = [
+        ...CalcToken.getPriorityList(),
+        CalcToken.getInstance("=")
+    ];
 
     return (
         <div className="App">
             <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
+                <Display
+                    calculation={calculation}
+                    setCalculation={setCalculation}
+                ></Display>
+
+                {buttonList.map((token, i) => (
+                    <CalcButton
+                        key={i}
+                        label={token.getTokenStr()}
+                        calculation={calculation}
+                        setCalculation={setCalculation}
+                    ></CalcButton>
+                ))}
             </header>
         </div>
     );
 }
-
-export default App;
