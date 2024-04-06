@@ -35,6 +35,12 @@ test("Find fourth level", () => {
     expect(new StringLexer().findLevel(arr, 4)).toBe(arrToFind);
 });
 
+test("Parse single numbers", () => {
+    testArrayEquals(new StringLexer().extractTokens("5"), [
+        CalcToken.getInstance(5)
+    ]);
+});
+
 test("Parse decimal numbers", () => {
     testArrayEquals(new StringLexer().extractTokens("4.6"), [
         CalcToken.getInstance(4.6)

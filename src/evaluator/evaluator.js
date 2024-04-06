@@ -14,6 +14,6 @@ export class Evaluator {
         const result = processer.calculate(tokensArray);
 
         console.log(`Final result: ${result}`);
-        return result;
+        return "" + result;
     }
 }
