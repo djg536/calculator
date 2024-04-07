@@ -1,14 +1,24 @@
 import { Evaluator } from "./evaluator/evaluator.js";
+import TokenProcesser from "./processer/tokenProcesser.js";
 
 export default function CalcButton({ label, calculation, setCalculation }) {
     const handleClick = () => {
-        let result = calculation;
-        if (label === "=") {
-            result = new Evaluator().run(calculation);
-        } else {
-            result += label;
-        }
-        setCalculation(result);
+        const getResult = () => {
+            if (label === "=") {
+                return new Evaluator().run(
+                    calculation,
+                    TokenProcesser.MODES.CONTINUOUS
+                );
+            } else if (label === "STEP") {
+                return new Evaluator().run(
+                    calculation,
+                    TokenProcesser.MODES.STEP
+                );
+            } else {
+                return calculation + label;
+            }
+        };
+        setCalculation(getResult());
     };
 
     return <button onClick={handleClick}>{label}</button>;

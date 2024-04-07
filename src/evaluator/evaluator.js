@@ -2,7 +2,7 @@ import StringLexer from "../lexer/stringLexer";
 import TokenProcesser from "../processer/tokenProcesser";
 
 export class Evaluator {
-    run(calculationStr) {
+    run(calculationStr, mode = TokenProcesser.MODES.CONTINUOUS) {
         console.log(`Evaluating: ${calculationStr}`);
 
         const lexer = new StringLexer();
@@ -11,7 +11,7 @@ export class Evaluator {
         console.log(`Tokens: ${tokensArray}`);
 
         const processer = new TokenProcesser();
-        const result = processer.calculate(tokensArray);
+        const result = processer.calculate(tokensArray, mode);
 
         console.log(`Final result: ${result}`);
         return "" + result;

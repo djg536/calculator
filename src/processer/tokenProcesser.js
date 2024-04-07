@@ -1,6 +1,12 @@
 import CalcToken from "../lexer/calcToken.js";
+import { calcTokenArrToString } from "../lexer/calcTokenUtils.js";
 
 export default class TokenProcesser {
+    static MODES = {
+        STEP: "STEP",
+        CONTINUOUS: "CONTINUOUS"
+    };
+
     process(terminalsArray, operatorIndex) {
         const operator = terminalsArray[operatorIndex];
         const beforeIndex = operator.isLHSArgument()
@@ -21,6 +27,7 @@ export default class TokenProcesser {
     }
 
     processTerminals(terminalsArray) {
+        console.debug(`Processing terminals ${terminalsArray}`);
         let operatorIndex;
         do {
             operatorIndex = this.findFirstOperatorIndex(terminalsArray);
@@ -45,19 +52,28 @@ export default class TokenProcesser {
         return firstOperatorIndex;
     }
 
-    navigate(tokensArray) {
+    navigate(arr) {
+        const tokensArray = [...arr];
         tokensArray.forEach((token, i) => {
             if (Array.isArray(token)) {
-                tokensArray[i] = this.navigate(token);
+                tokensArray[i] = this.navigate([...token]);
                 console.info(token);
             }
         });
-        console.debug(`Processing terminals ${tokensArray}`);
-        return this.processTerminals(tokensArray);
+        if (
+            this._activeMode === TokenProcesser.MODES.CONTINUOUS ||
+            this._iteration === 0
+        ) {
+            this._iteration++;
+            return this.processTerminals(tokensArray);
+        } else {
+            return tokensArray;
+        }
     }
 
-    calculate(tokensArray) {
-        this.navigate(tokensArray);
-        return tokensArray[0].getTokenStr();
+    calculate(tokensArray, mode) {
+        this._activeMode = mode;
+        this._iteration = 0;
+        return calcTokenArrToString(this.navigate(tokensArray));
     }
 }
