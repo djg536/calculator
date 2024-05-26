@@ -1,7 +1,12 @@
 import { Evaluator } from "./evaluator/evaluator.js";
 import TokenProcesser from "./processer/tokenProcesser.js";
 
-export default function CalcButton({ label, calculation, setCalculation }) {
+export default function CalcButton({
+    label,
+    calculation,
+    setCalculation,
+    displayRef
+}) {
     const handleClick = () => {
         const getResult = () => {
             if (label === "=") {
@@ -21,6 +26,7 @@ export default function CalcButton({ label, calculation, setCalculation }) {
             }
         };
         setCalculation(getResult());
+        displayRef.current.focus();
     };
 
     return <button onClick={handleClick}>{label}</button>;
