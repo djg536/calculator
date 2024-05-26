@@ -8,6 +8,7 @@ export default function App() {
     const [calculation, setCalculation] = useState("(2*3)+(4-(2+1))");
 
     const buttonList = [
+        CalcToken.getInstance("AC"),
         ...CalcToken.getPriorityList(),
         CalcToken.getInstance("="),
         CalcToken.getInstance("STEP")

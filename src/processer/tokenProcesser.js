@@ -36,7 +36,7 @@ export default class TokenProcesser {
             }
         } while (operatorIndex);
         console.debug(`Result: ${terminalsArray}`);
-        return terminalsArray[0];
+        return terminalsArray[0] ?? [];
     }
 
     findFirstOperatorIndex(terminalsArray) {

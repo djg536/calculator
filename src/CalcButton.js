@@ -9,6 +9,8 @@ export default function CalcButton({ label, calculation, setCalculation }) {
                     calculation,
                     TokenProcesser.MODES.CONTINUOUS
                 );
+            } else if (label === "AC") {
+                return "";
             } else if (label === "STEP") {
                 return new Evaluator().run(
                     calculation,
