@@ -12,7 +12,7 @@ export default class TokenProcesser {
         const beforeIndex = operator.isLHSArgument()
             ? operatorIndex - 1
             : operatorIndex;
-        const afterIndex = operator.isLHSArgument()
+        const afterIndex = operator.isRHSArgument()
             ? operatorIndex + 1
             : operatorIndex;
         const result = operator.getFunc()(
@@ -31,7 +31,7 @@ export default class TokenProcesser {
         let operatorIndex;
         do {
             operatorIndex = this.findFirstOperatorIndex(terminalsArray);
-            if (operatorIndex) {
+            if (operatorIndex !== undefined) {
                 this.process(terminalsArray, operatorIndex);
             }
         } while (operatorIndex);

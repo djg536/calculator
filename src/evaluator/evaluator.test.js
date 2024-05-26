@@ -1,5 +1,9 @@
 import { Evaluator } from "./evaluator";
 
+test("Empty calculation", () => {
+    expect(new Evaluator().run("")).toBe("");
+});
+
 test("Inner brackets", () => {
     expect(new Evaluator().run("2*3")).toBe("6");
 });
@@ -28,6 +32,14 @@ test("Decimal point calculations", () => {
     expect(new Evaluator().run("1.5+4")).toBe("5.5");
 });
 
-test("Evaluated calculations", () => {
+test("Multi-operator calculation", () => {
     expect(new Evaluator().run("5*2+(3-(2*2))")).toBe("9");
+});
+
+test("Logarithm calculation", () => {
+    expect(new Evaluator().run("log5")).toBe("1.6094379124341003");
+});
+
+test("Trigonemtric sin calculation", () => {
+    expect(new Evaluator().run("sin1")).toBe("0.8414709848078965");
 });

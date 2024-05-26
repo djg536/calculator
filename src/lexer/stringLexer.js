@@ -10,6 +10,9 @@ export default class StringLexer {
             "////",
             "\\-",
             "log",
+            "sin",
+            "cos",
+            "tan",
             "\\d+\\.?\\d*"
         ];
         const extractTokenRegex = new RegExp(validTokens.join("|"), "gm");

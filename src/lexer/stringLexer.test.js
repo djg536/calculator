@@ -68,3 +68,10 @@ test("Whitespace ignored", () => {
         CalcToken.getInstance(4.6)
     ]);
 });
+
+test("Parse multi-character operator", () => {
+    testArrayEquals(new StringLexer().extractTokens("sin1"), [
+        CalcToken.getInstance("sin"),
+        CalcToken.getInstance(1)
+    ]);
+});

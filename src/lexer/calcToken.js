@@ -25,6 +25,10 @@ export default class CalcToken {
     static getPriorityList() {
         let i = 0;
         return [
+            new CalcToken("log", i++, false, true, (_, b) => Math.log(b)),
+            new CalcToken("sin", i++, false, true, (_, b) => Math.sin(b)),
+            new CalcToken("cos", i++, false, true, (_, b) => Math.cos(b)),
+            new CalcToken("tan", i++, false, true, (_, b) => Math.tan(b)),
             new CalcToken("-", i++, true, true, (a, b) => a - b),
             new CalcToken("+", i++, true, true, (a, b) => a + b),
             new CalcToken("*", i++, true, true, (a, b) => a * b),
